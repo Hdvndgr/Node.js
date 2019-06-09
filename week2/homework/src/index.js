@@ -25,14 +25,12 @@ function upDelete(todo = null) {
     fs.readFile(FILE, DEFAULT_ENCODING, (err, data) => {
       let lines = data.split('\n');
       let index = checkIndex(lines);
-      console.log(index);
-      console.log(todo);
-      
+
       if (index === NaN) {
         return;
       }
-      
-      if (todo.length > 0) {
+
+      if (todo != null && todo.length > 0) {
         // Updates the todo item at index
         let todoList = todo.join(' ');
         lines.splice(index, 1, todoList);
@@ -57,7 +55,7 @@ function upDelete(todo = null) {
 function resetToDos() {
   return new Promise((resolve, reject) => {
     // Overwrite the file with ''
-    fs.writeFile(FILE, '', err => {
+    fs.writeFile(FILE, '', DEFAULT_ENCODING, err => {
       if (err) reject(err);
       resolve('To-Do List is cleared!');
     });
